@@ -4430,6 +4430,7 @@ def main():
     .data-table td { padding:9px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
     .data-table tbody tr:nth-child(even) { background:var(--panel2); }
     .data-table tbody tr:last-child td { border-bottom:0; }
+    .mobile-table-cards,.mobile-table-card,.mobile-table-title,.mobile-table-stat { display:none !important; }
     [data-testid="stMetricLabel"] { color:var(--muted); font-size:.82rem; }
     [data-testid="stMetricValue"] { color:var(--green-dark); font-family:'Manrope',sans-serif; font-weight:800; }
     [data-baseweb="tab-list"] { gap:7px; border-bottom:1px solid var(--line);
