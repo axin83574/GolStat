@@ -3587,7 +3587,7 @@ def render_view_only(data, username, profile, entry, guest_invite=None, guest_pr
     t1, t2 = tabs[0], tabs[2]
     with t1:
         st.subheader(data.get("nume_liga", "Liga"))
-        render_cards(ranking(data), data.get("echipe", {}))
+        render_cards(ranking(data), data.get("echipe", {}), table_mode=True)
     with t2:
         viewer_league_slug = safe_slug(league_key(entry))
         viewer_team_key = f"viewer_roster_team_{viewer_league_slug}"
