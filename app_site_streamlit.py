@@ -3320,10 +3320,11 @@ def render_cards(rows, team_data=None, table_mode=False):
                 else:
                     image = f"<span class='team-avatar' aria-hidden='true'>{html.escape(initials)}</span>"
                 shown = f"<span class='team-name-cell'>{image}<span>{shown}</span></span>"
-            rendered_cells.append(f'<td data-label="{label}">{shown}</td>')
+            rendered_cells.append(f'<td>{shown}</td>' if table_mode else
+                                  f'<td data-label="{label}">{shown}</td>')
         body_rows.append(f"<tr>{''.join(rendered_cells)}</tr>")
-    wrapper_class = "league-table-wrap classic-table-wrap" if table_mode else "league-table-wrap"
-    table_class = "league-table classic-table" if table_mode else "league-table"
+    wrapper_class = "data-table-wrap" if table_mode else "league-table-wrap"
+    table_class = "data-table" if table_mode else "league-table"
     table_id = " id='classic-league-table'" if table_mode else ""
     wrapper_id = " id='classic-league-table-wrap'" if table_mode else ""
     markup = (f"<div class='{wrapper_class}'{wrapper_id}><table class='{table_class}'{table_id}>"
@@ -4422,6 +4423,13 @@ def main():
     .league-table tbody tr:nth-child(even) { background:var(--panel2); }
     .league-table tbody tr:last-child td { border-bottom:0; }
     .league-table tbody tr:hover { background:var(--pale); }
+    .data-table-wrap { width:100%; max-width:100%; overflow-x:auto; overflow-y:hidden; border:1px solid var(--line);
+        border-radius:12px; background:var(--panel); box-shadow:var(--shadow); margin:.35rem 0 1rem; -webkit-overflow-scrolling:touch; }
+    table.data-table { width:max-content; min-width:100%; border-collapse:collapse; border-spacing:0; color:var(--text); font-size:.9rem; table-layout:auto; }
+    .data-table th { background:var(--panel2); color:var(--muted); font-size:.76rem; font-weight:800; text-align:left; white-space:nowrap; padding:10px 12px; border-bottom:1px solid var(--line); }
+    .data-table td { padding:9px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+    .data-table tbody tr:nth-child(even) { background:var(--panel2); }
+    .data-table tbody tr:last-child td { border-bottom:0; }
     [data-testid="stMetricLabel"] { color:var(--muted); font-size:.82rem; }
     [data-testid="stMetricValue"] { color:var(--green-dark); font-family:'Manrope',sans-serif; font-weight:800; }
     [data-baseweb="tab-list"] { gap:7px; border-bottom:1px solid var(--line);
@@ -4715,19 +4723,29 @@ a.bike-ad-banner{border-radius:18px!important;box-shadow:0 15px 35px rgba(0,0,0,
  [data-testid="stHorizontalBlock"]>[data-testid="column"]{width:100%!important;min-width:100%!important;flex:1 1 100%!important}
  div.stButton>button,div.stFormSubmitButton>button{width:100%!important;min-height:48px!important}
  [data-testid="stDataFrame"],[data-testid="stTable"]{max-width:100%!important;overflow-x:auto!important}
- .league-table-wrap,#classic-league-table-wrap{display:block!important;width:100%!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;border:1px solid var(--line)!important;background:var(--panel)!important;border-radius:12px!important;box-shadow:0 4px 12px rgba(0,0,0,.12)!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;touch-action:pan-x pan-y!important}
+ .league-table-wrap,#classic-league-table-wrap,.data-table-wrap{display:block!important;width:100%!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;border:1px solid var(--line)!important;background:var(--panel)!important;border-radius:12px!important;box-shadow:0 4px 12px rgba(0,0,0,.12)!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;touch-action:pan-x pan-y!important}
  table.league-table,#classic-league-table{display:table!important;width:max-content!important;min-width:100%!important;table-layout:auto!important;border-collapse:collapse!important;border-spacing:0!important}
+ table.data-table{display:table!important;width:max-content!important;min-width:100%!important;table-layout:auto!important;border-collapse:collapse!important;border-spacing:0!important}
  table.league-table thead,#classic-league-table thead{display:table-header-group!important;visibility:visible!important}
+ table.data-table thead{display:table-header-group!important;visibility:visible!important}
  table.league-table tbody,#classic-league-table tbody{display:table-row-group!important;width:auto!important;min-width:0!important}
+ table.data-table tbody{display:table-row-group!important;width:auto!important;min-width:0!important}
  table.league-table thead tr,table.league-table tbody tr,#classic-league-table thead tr,#classic-league-table tbody tr{display:table-row!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+ table.data-table thead tr,table.data-table tbody tr{display:table-row!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
  table.league-table th,table.league-table td,#classic-league-table th,#classic-league-table td{display:table-cell!important;position:static!important;visibility:visible!important;height:auto!important;min-width:3.1rem!important;width:auto!important;max-width:none!important;padding:.48rem .45rem!important;white-space:nowrap!important;border-bottom:1px solid var(--line)!important;text-align:center!important;vertical-align:middle!important;transform:none!important}
+ table.data-table th,table.data-table td{display:table-cell!important;position:static!important;visibility:visible!important;height:auto!important;min-width:3.1rem!important;width:auto!important;max-width:none!important;padding:.48rem .45rem!important;white-space:nowrap!important;border-bottom:1px solid var(--line)!important;text-align:center!important;vertical-align:middle!important;transform:none!important}
  table.league-table th:first-child,table.league-table td:first-child,#classic-league-table th:first-child,#classic-league-table td:first-child{text-align:left!important;min-width:9rem!important}
+ table.data-table th:first-child,table.data-table td:first-child{text-align:left!important;min-width:9rem!important}
  table.league-table th,#classic-league-table th{background:var(--panel2)!important;color:var(--muted)!important;font-size:.68rem!important;font-weight:800!important}
+ table.data-table th{background:var(--panel2)!important;color:var(--muted)!important;font-size:.68rem!important;font-weight:800!important}
  table.league-table td,#classic-league-table td{font-size:.76rem!important}
+ table.data-table td{font-size:.76rem!important}
  table.league-table td:before,#classic-league-table td:before{display:none!important;content:none!important}
  table.league-table tbody tr td:first-child,#classic-league-table tbody tr td:first-child{font-weight:850;color:#f3f7fc!important}
  table.league-table .team-name-cell,#classic-league-table .team-name-cell{display:inline-flex!important;justify-content:flex-start!important;white-space:nowrap!important;gap:.4rem!important}
+ table.data-table .team-name-cell{display:inline-flex!important;justify-content:flex-start!important;white-space:nowrap!important;gap:.4rem!important}
  table.league-table .team-avatar,table.league-table .team-logo-inline,#classic-league-table .team-avatar,#classic-league-table .team-logo-inline{width:1.45rem!important;height:1.45rem!important}
+ table.data-table .team-avatar,table.data-table .team-logo-inline{width:1.45rem!important;height:1.45rem!important}
  .team-name-cell{justify-content:flex-start}
  .team-avatar{width:1.65rem;height:1.65rem}
  .team-logo-inline{width:1.65rem;height:1.65rem}
