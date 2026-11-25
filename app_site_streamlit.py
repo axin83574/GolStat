@@ -3293,8 +3293,8 @@ def render_live_ticker(path):
         unsafe_allow_html=True)
 
 
-def render_cards(rows, team_data=None, table_mode=False):
-    """Render compact, themed rows matching the original app's Treeview tables."""
+def render_cards(rows, team_data=None, table_mode=True):
+    """Render results as responsive tables across desktop and mobile views."""
     rows = list(rows)
     if not rows:
         st.caption("Nu există date de afișat încă.")
